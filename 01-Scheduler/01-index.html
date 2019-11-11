@@ -24,12 +24,26 @@
                 document.getElementById('divMessages').innerHTML += msg + '<br/>';
             }
             function doWork(){
-                for(var i=0; i<20000; i++){
-                    for (let j = 0; j < 10000; j++) {
-                        for (let k = 0; k < 100; k++) {
+                var totalIterations = 1000,
+                    currentIteration = 0;
+                
+                function oneIteration(){
+                    for(var i=0; i< (20000/totalIterations); i++){
+                        for (let j = 0; j < 10000; j++) {
+                            for (let k = 0; k < 100; k++) {
+                            }
                         }
                     }
+                    ++currentIteration;
+                    if (currentIteration < totalIterations){
+                        setTimeout(oneIteration);
+                    } else {
+                        console.log('Job Done...!');
+                    }
                 }
+
+                setTimeout(oneIteration);
+
             }
         })();
     </script>
