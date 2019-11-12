@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator-[POST]</title>
+</head>
+<body>
+    <h1>Calculator-[POST]</h1>
+    <hr>
+    <form action="http://localhost:9090/calculator" method="POST">
+        <input type="number" name="x" id="">
+        <select name="op" id="">
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+        </select>
+        <input type="number" name="y" id="">
+        <input type="submit" value="Calculate">
+    </form>
+</body>
+</html>
