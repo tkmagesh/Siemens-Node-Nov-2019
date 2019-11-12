@@ -5,7 +5,6 @@ var http = require('http'),
     serveCalculator = require('./serveCalculator'),
     notFoundHandler = require('./notFoundHandler');
 
-
 app.use(dataParser); 
 app.use(serveStatic); 
 app.use(serveCalculator); 
@@ -13,9 +12,7 @@ app.use(notFoundHandler);
 
 //console.log(req.method + '\t' + req.url);
 
-var server = http.createServer(function (req, res) {
-    app(req, res);    
-});
+var server = http.createServer(app);
 
 server.listen(8080);
 
