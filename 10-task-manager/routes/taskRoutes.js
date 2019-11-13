@@ -4,15 +4,38 @@ var express = require('express'),
 
 
 
-router.get('/', function(req, res, next){
-    var tasks = taskService.getAll();
-    res.json(tasks);
+/* router.get('/', function(req, res, next){
+    taskService
+        .getAll()
+        .then(function(taskList){
+            res.json(taskList);
+        });
 });
 
 router.get('/:id', function(req, res, next){
     var taskId = parseInt(req.params.id);
-    var result = taskService.get(taskId);
-    if (result){
+    taskService
+        .get(taskId)
+        .then(function(result){
+            if (result) {
+                res.json(result);
+            } else {
+                res.status(404).end();
+            }
+        })
+    
+});
+ */
+
+router.get('/', async function (req, res, next) {
+    var taskList = await taskService.getAll()
+    res.json(taskList);
+});
+
+router.get('/:id', async function (req, res, next) {
+    var taskId = parseInt(req.params.id);
+    var result = await taskService.get(taskId);
+    if (result) {
         res.json(result);
     } else {
         res.status(404).end();
@@ -20,8 +43,12 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
-    var data = taskService.addNew(req.body);
-    res.status(201).json(data);
+    taskService
+        .addNew(req.body)
+        .then(function(newTask){
+            res.status(201).json(newTask);
+        })
+    
 });
 
 router.put('/:id', function(req, res, next){
