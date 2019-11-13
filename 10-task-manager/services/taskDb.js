@@ -15,7 +15,7 @@ function saveData(taskList, callback){
     fs.writeFile('../db/tasks.json', JSON.stringify(taskList), callback);
 } */
 
-function readData() {
+/* function readData() {
     return new Promise(function(resolveFn, rejectFn){
         fs.readFile(dataFile, { encoding: 'utf8' }, function (err, fileContents) {
             if (err) {
@@ -36,8 +36,27 @@ function saveData(taskList) {
             return resolveFn();
         });
     });
+} */
+
+var util = require('util');
+    readFileAsync = util.promisify(fs.readFile),
+    writeFileAsync = util.promisify(fs.writeFile);
+
+/* function readData() {
+    return readFileAsync(dataFile, { encoding : 'utf8'})
+        .then(function(fileContents){
+            return JSON.parse(fileContents);
+        });
+} */
+
+async function readData() {
+    var fileContents = await readFileAsync(dataFile, { encoding: 'utf8' });
+    return JSON.parse(fileContents);
 }
 
+function saveData(taskList) {
+    return writeFileAsync(dataFile, JSON.stringify(taskList));
+}
 module.exports = {
     readData,
     saveData
