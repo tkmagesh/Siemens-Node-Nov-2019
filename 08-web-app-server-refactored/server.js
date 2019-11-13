@@ -1,4 +1,5 @@
 var http = require('http'),
+    path = require('path'),
     app = require('./app'),
     dataParser = require('./dataParser'),
     serveStatic = require('./serveStatic'),
