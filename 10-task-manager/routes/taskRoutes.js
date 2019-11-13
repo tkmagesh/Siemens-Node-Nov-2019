@@ -22,4 +22,38 @@ router.get('/:id', function(req, res, next){
     }
 });
 
+router.post('/', function(req, res, next){
+    var data = req.body,
+        newTaskId = taskList.reduce(function(result, task){
+            return result > task.id ? result : task.id
+        }, 0) + 1;
+    data.id = newTaskId;
+    taskList.push(data);
+    res.status(201).json(data);
+});
+
+router.put('/:id', function(req, res, next){
+    var data = req.body,
+        taskId = parseInt(req.params.id);
+    taskList = taskList.map(function(task){
+        return task.id === taskId ? data : task;
+    });
+    res.json(data);
+});
+
+router.delete('/:id', function (req, res, next) {
+    var taskId = parseInt(req.params.id);
+    var taskToDelete = taskList.find(function(task){
+        return task.id === taskId;
+    });
+    if(taskToDelete){
+        taskList = taskList.filter(function(task){
+            return task.id !== taskId;
+        });
+        res.json(null);
+    } else {
+        res.status(404).end();
+    }
+});
+
 module.exports = router;
